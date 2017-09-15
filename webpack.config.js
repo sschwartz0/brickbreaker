@@ -3,12 +3,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
-const htmlWebpackTemplateConfig = require('./config/htmlWebpackTemplate.js'); // TODO: get working
+const htmlWebpackTemplateConfig = require('./config/htmlWebpackTemplate.js'); // TODO: get working as import
 
 module.exports = {
-  entry: {
-    app: './src/index.js',
-  },
+  context: path.join(__dirname, "src"),  
+  entry: ['babel-polyfill', './index.js'],
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
@@ -22,25 +21,9 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new UglifyJSPlugin(),
     new HtmlWebpackPlugin({
-      // Required
-      inject: false,
-      template: require('html-webpack-template'),
-    
-      // Optional
-      meta: [
-        {
-          name: 'description',
-          content: 'A better default template for html-webpack-plugin.'
-        }
-      ],
-      mobile: true,
-      lang: 'en-US',
-      inlineManifestWebpackName: 'webpackManifest',
-      title: 'My App',
- 
-    
-      // And any other config options from html-webpack-plugin:
-      // https://github.com/ampedandwired/html-webpack-plugin#configuration
+      template: './index.html',
+      filename: 'index.html',
+      inject: 'body'
     })
   ],
   output: {
@@ -49,6 +32,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: [':data-src']
+          }
+        }
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
