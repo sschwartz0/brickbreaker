@@ -1,15 +1,10 @@
 import React from 'react';
+import Message from './message/Message'
 
 export default class App extends React.Component {
-  onClick = () => {
-    console.log('yodfgsdfdfg')
-  }
-
-  onClick3 = () => {
-    alert('dsfsdf')
-  }
-
   render () {
-    return <p onClick={this.onClick}> Hello asasasas!</p>;
+    return (
+      <Message text={'yoo'} />
+    )
   }
 }

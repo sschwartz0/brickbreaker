@@ -1,4 +1,6 @@
-const initialState = {
-  message: 'yo'
-}
+import { combineReducers } from 'redux';
+import messages from './modules/message/reducer'
 
+export default combineReducers({
+  messages,
+})
