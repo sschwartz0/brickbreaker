@@ -1,0 +1,11 @@
+{
+  "presets": [
+    "stage-0", 
+    "env", 
+    "react"
+  ],
+  "plugins": [
+    "react-hot-loader/babel"
+  ]
+}
+// TODO: https://github.com/gaearon/redux-devtools/commit/64f58b7010a1b2a71ad16716eb37ac1031f93915

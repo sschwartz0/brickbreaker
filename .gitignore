@@ -1,0 +1,3 @@
+node_modules/*
+dist/*
+vscode_settings_sync_token.txt
