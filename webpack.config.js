@@ -7,14 +7,21 @@ const htmlWebpackTemplateConfig = require('./config/htmlWebpackTemplate.js'); //
 
 module.exports = {
   context: path.join(__dirname, "src"),  
-  entry: ['babel-polyfill', './index.js'],
-  devtool: 'inline-source-map',
+  entry: {
+    'app': [
+      'babel-polyfill',
+      'react-hot-loader/patch', 
+      './index.js'
+    ],
+  },
+  devtool: 'inline-eval-cheap-source-map',
   devServer: {
     contentBase: './dist',
     hot: true
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common'
     }),

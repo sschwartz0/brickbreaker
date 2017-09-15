@@ -1,11 +1,13 @@
 {
   "presets": [
-    "stage-0", 
+    "es2015",
+    "stage-0",
     "env", 
     "react"
   ],
   "plugins": [
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    "transform-class-properties"
   ]
 }
 // TODO: https://github.com/gaearon/redux-devtools/commit/64f58b7010a1b2a71ad16716eb37ac1031f93915
