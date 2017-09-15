@@ -10,6 +10,6 @@ export default class App extends React.Component {
   }
 
   render () {
-    return <p onClick={this.onClick}> Hello Rdfssdfeddaaeect!</p>;
+    return <p onClick={this.onClick}> Hello asasasas!</p>;
   }
 }
