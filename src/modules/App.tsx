@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import Message from './message/Message'
 
 export default class App extends React.Component {
-  render () {
+  render() {
     return (
-      <Message text={'yoo'} />
+      <Message text="yodfsssfssdfo" />
     )
   }
 }
