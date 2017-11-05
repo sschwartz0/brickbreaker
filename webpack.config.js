@@ -8,7 +8,12 @@ const webpack = require('webpack');
 module.exports = {
 	context: path.join(__dirname, 'src'),
 	entry: {
-		app: ['babel-polyfill', 'react-hot-loader/patch', './index.tsx'],
+		app: [
+			'babel-polyfill', 
+			'react-hot-loader/patch', 
+			'./index.tsx',
+			'./assets/styles/main.scss'
+		],
 	},
 	devtool: 'source-map',
 	devServer: {
@@ -18,9 +23,9 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: 'common',
-		}),
+		// new webpack.optimize.CommonsChunkPlugin({
+		// 	name: 'common',
+		// }),
 		new HtmlWebpackPlugin({
 			template: './index.html',
 			filename: 'index.html',
@@ -57,10 +62,10 @@ module.exports = {
 				exclude: /node_modules/,
 				use: ['babel-loader'],
 			},
-			{
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
-			},
+      {
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.scss$/,
+      },
 			{
 				test: /\.(png|svg|jpg|gif)$/,
 				use: ['file-loader'],

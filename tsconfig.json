@@ -1,16 +1,32 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
-		"outDir": "./dist/",
-		"sourceMap": true,
-		"noImplicitAny": false,
-		"module": "commonjs",
-		"target": "es5",
-		"jsx": "react",
-		"experimentalDecorators": true
+			"moduleResolution": "node",
+			"module": "es6",
+			"noImplicitAny": true,
+			"removeComments": true,
+			"preserveConstEnums": true,
+			"target": "es5",
+			"lib": ["es5", "es6", "es7", "dom", "es2017", "es2015.promise"],
+			"jsx": "react",
+			"watch": true,
+			"allowJs": true,
+			"checkJs":  false,
+			"allowSyntheticDefaultImports": true,
+			"experimentalDecorators": true,
+			"sourceMap": true,
+			"noUnusedLocals": true,
+			"noUnusedParameters": true,
+			"typeRoots": [
+					"node_modules/@types",
+					"@types/**/*.ts"
+			],
+			"strictNullChecks": false
 	},
-	"include": ["./src/**/*"],
-  "exclude": [
-    "node_modules"
-  ]
+	"include": [
+			"**/*.tsx",
+			"**/*.ts"
+	],
+	"exclude": [
+			"./node_modules/*"
+	]
 }

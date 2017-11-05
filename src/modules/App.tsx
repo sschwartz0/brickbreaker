@@ -1,10 +1,10 @@
-import * as React from 'react';
-import Message from './message/Message'
+import React, { PureComponent } from 'react';
+import MusicPlayer from './musicPlayer/DataContainer'
 
-export default class App extends React.Component {
+export default class App extends PureComponent {
   render() {
     return (
-      <Message text="yodfsssfssdfo" />
+      <MusicPlayer />
     )
   }
 }

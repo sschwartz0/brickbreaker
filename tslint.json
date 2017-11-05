@@ -1,0 +1,56 @@
+{
+  "extends": [
+    "tslint-config-airbnb",
+    "tslint-eslint-rules"
+  ],
+  "rules": {
+    "whitespace": [true, "check-type-operator"],
+    "max-line-length": [true, 140],
+    "import-name": false,
+    "interface-over-type-literal": true,
+    "no-console": true,
+    "curly": [true, "as-needed"],
+    "brace-style": [2, "stroustrup"],
+    "max-len": [1, 120, 2, {"ignoreComments": true}],
+    "quote-props": [1, "consistent-as-needed"],
+    "no-cond-assign": [2],
+    "radix": false,
+    "semicolon": true,
+    "space-infix-ops": 0,
+    "default-case": 0,
+    "no-else-return": 0,
+    "no-param-reassign": 0,
+    "camelcase": 0,
+    "arrow-body-style": 0,
+    "no-trailing-spaces": 0,
+    "no-lonely-if": 0,
+    "object-literal-sort-keys": true,
+    "react/forbid-prop-types": 0,
+    "react/require-default-props": 0,
+    "react/jsx-filename-extension": 0, 
+    "react/jsx-sort-props": [2, {
+      "callbacksLast": true,
+      "shorthandFirst": false,
+      "shorthandLast": false,
+      "ignoreCase": true,
+      "noSortAlphabetically": false,
+      "reservedFirst": false
+    }],
+    "react/sort-comp": [1, {
+      "order": [
+        "type-annotations",
+        "static-methods",
+        "lifecycle",
+        "everything-else",
+        "render"
+      ]
+    }],
+    "cumul8/alphabetical-destructuring": 2,
+    "jsx-a11y/href-no-hash": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/no-autofocus": 0,
+    "object-shorthand-properties-first": ["error", "never"],
+    "variable-name": false,
+    "align": false
+  }
+}

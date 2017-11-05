@@ -1,33 +1,36 @@
 {
-  "name": "reactenv",
-  "version": "1.0.0",
-  "description": "webpack3, react fiber, react router 4, redux, flow",
+  "name": "thedapperdons",
+  "version": "0.0.1",
+  "description": "thedapperdons",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
+    "server": "nodemon ./server.js",
     "build": "webpack",
     "webpack-analyze": "webpack --profile --json > stats.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sschwartz0/react-env.git"
+    "url": "git+https://github.com/sschwartz0/thedapperdons"
   },
   "author": "Scott Schwartz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sschwartz0/react-env/issues"
+    "url": "https://github.com/sschwartz0/thedapperdons/issues"
   },
-  "homepage": "https://github.com/sschwartz0/react-env#readme",
+  "homepage": "https://github.com/sschwartz0/thedapperdons#readme",
   "dependencies": {
-    "@types/react": "^16.0.9",
-    "@types/react-dom": "^16.0.0",
-    "@types/react-hot-loader": "^3.0.4",
-    "@types/react-redux": "^5.0.10",
+    "@types/react": "^16.0.20",
+    "@types/react-dom": "^16.0.2",
+    "@types/react-hot-loader": "^3.0.5",
+    "@types/react-redux": "^5.0.12",
+    "express": "^4.16.2",
+    "graphql": "^0.11.7",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-hot-loader": "^3.0.0-beta.7",
+    "react-hot-loader": "^3.1.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
@@ -51,8 +54,11 @@
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
     "html-webpack-template": "^5.6.0",
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.12.1",
     "path": "^0.12.7",
     "redux-devtools": "^3.4.0",
+    "sass-loader": "^6.0.0",
     "source-map-loader": "^0.2.2",
     "style-loader": "^0.18.2",
     "ts-loader": "^2.3.7",

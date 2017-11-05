@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
-import messages from './modules/message/reducer'
+import musicPlayer from './modules/musicPlayer/reducer'
 
-export default messages;
+export default combineReducers({
+  musicPlayer,
+});
