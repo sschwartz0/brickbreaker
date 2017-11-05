@@ -1,6 +1,13 @@
-const express = require('express')
-const app = express()
+var express = require('express')
+var path = require('path')
+var serveStatic = require('serve-static')
 
-app.get('/', (req, res) => res.send('Hello World!'))
+var app = express();
+var port = 3000;
 
-app.listen(3000, () => console.log('App listening on port 3000!'))
+app.use(serveStatic(path.join(__dirname, 'dist')));
+
+
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.listen(port, () => console.log(`Server started on port ${port}`))
