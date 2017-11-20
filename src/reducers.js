@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import musicPlayer from './modules/musicPlayer/reducer'
+import canvas from './modules/canvas/reducer'
 
 export default combineReducers({
-  musicPlayer,
+  canvas,
 });

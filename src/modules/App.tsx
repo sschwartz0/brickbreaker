@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import MusicPlayer from './musicPlayer/DataContainer'
+import Canvas from './canvas/DataContainer';
 
 export default class App extends PureComponent {
   render() {
     return (
-      <MusicPlayer />
-    )
+      <Canvas />
+    );
   }
 }
