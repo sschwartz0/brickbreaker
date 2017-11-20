@@ -14,7 +14,11 @@ const initialState: InitialState = {
   currentLevel: {
     totalBricks: undefined,
     bricksLeft: undefined,
-    brickLayout: undefined,
+    brickLayout: [
+      [undefined, true, true, true, undefined],
+      [true, true, true, true, true],
+      [undefined, true, true, true, undefined],
+    ],
   },
   player: undefined,
   scores: undefined,

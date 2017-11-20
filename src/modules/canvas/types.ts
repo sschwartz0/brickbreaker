@@ -10,7 +10,7 @@ export interface InitialState {
   currentLevel: {
     totalBricks: number;
     bricksLeft: number;
-    brickLayout: string[];
+    brickLayout: boolean[][];
   };
   player: string;
   scores: number;
