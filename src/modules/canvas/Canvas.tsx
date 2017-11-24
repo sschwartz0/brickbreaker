@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import {setInterval, clearInterval} from 'timers';
+import React, { PureComponent } from 'react';
+import { setInterval, clearInterval } from 'timers';
 // import { LogicContainerProps } from './types';
 
 export default class Canvas extends PureComponent < any > {
