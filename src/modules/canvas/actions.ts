@@ -1,15 +1,19 @@
 import { Dispatch } from 'redux';
 import {
   MovePaddleAction,
-  PlayAction,
+  ChangeGameStatusAction,
   SetBrickCoordinatesAction,
   ChangeBrickStatusAction,
   IncreaseScoreAction,
+  LostALifeAction,
   TypeKeys,
 } from './types';
 
-export const play = () => (dispatch: Dispatch<PlayAction>) => {
-  dispatch({ type: TypeKeys.PLAY });
+export const changeGameStatus = (status: string) => (dispatch: Dispatch<ChangeGameStatusAction>) => {
+  dispatch({ 
+    type: TypeKeys.CHANGE_GAME_STATUS,
+    status,
+   });
 };
 
 export const setBrickCoordinates = (row: number, column: number, x: number, y: number) => (dispatch: Dispatch<SetBrickCoordinatesAction>) => {
@@ -45,5 +49,12 @@ export const increaseScore = () => (dispatch: Dispatch<IncreaseScoreAction>, get
 };
 
 export const movePaddle = (mouseX: number) => (dispatch: Dispatch<MovePaddleAction>) => {
-  dispatch({ type: TypeKeys.MOVE_PADDLE, mouseX });
+  dispatch({ 
+    type: TypeKeys.MOVE_PADDLE, 
+    mouseX,
+  });
+};
+
+export const lostALife = () => (dispatch: Dispatch<LostALifeAction>) => {
+  dispatch({ type: TypeKeys.LOST_A_LIFE });
 };

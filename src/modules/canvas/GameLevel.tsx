@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { setInterval, clearInterval } from 'timers';
 // import { LogicContainerProps } from './types';
 
-export default class Canvas extends PureComponent<any> {
+export default class GameLevel extends PureComponent<any> {
 
   canvas: any;
   game: any;
@@ -23,7 +23,8 @@ export default class Canvas extends PureComponent<any> {
       clearInterval(this.dropBall);
       this.ballHorizontal = 'right';
       this.ballVertical = 'down';
-      this.startGame();
+      if (this.props.status !== 'PLAYING')
+        this.startGame();
     });
     this.game = this.canvas.getContext('2d');
     
@@ -79,8 +80,14 @@ export default class Canvas extends PureComponent<any> {
 
     this.collisionDetection();
 
-    if (this.ballY > this.canvas.height - 10)
+    if (this.ballY > this.canvas.height - 10) {
+      this.props.lostALife();
       clearInterval(this.dropBall);
+      if (this.props.currentGame.lives === 0)
+        this.props.changeGameStatus('GAME_OVER');
+      else
+        this.props.changeGameStatus('PAUSED')
+    }
   }
 
   brickWidth = 75;
@@ -160,6 +167,33 @@ export default class Canvas extends PureComponent<any> {
       }
     }
   }
+  
+  pause = () => {
+    clearInterval(this.dropBall)
+    this.props.changeGameStatus('PAUSED')
+  }
+  
+  resume = () => {
+    this.dropBall = setInterval(() => {
+      this.game.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      this.ball = new Path2D();
+      this.ball.moveTo(0, 0);
+      this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI);
+      this.game.fillStyle = 'rgb(200, 0, 0)';
+      this.game.fill(this.ball);
+      this.moveBall();
+
+      this.paddle = new Path2D();
+      this.paddle.rect(this.props.currentGame.mouseX, 570, 150, 15);
+      this.game.fillStyle = 'rgb(0, 0, 0)';
+      this.game.fill(this.paddle);
+      
+      this.drawBricks();
+    }, 10);
+    
+    this.props.changeGameStatus('PLAYING')
+  }
 
   render() {
 
@@ -168,7 +202,9 @@ export default class Canvas extends PureComponent<any> {
     return (
       <div className="canvas-container">
         <canvas id="game" width="600px" height="600px"></canvas>
-        <p></p>
+        <p>Lives: {this.props.currentGame.lives}</p>
+        <p><button onClick={this.pause}>Pause</button></p>
+        <p><button onClick={this.resume}>Resume</button></p>
       </div>
     );
   }

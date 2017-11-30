@@ -10,16 +10,16 @@ export interface InitialState {
   currentLevel: {
     totalBricks: number;
     bricksLeft: number;
-    brickWidth: number;
-    brickHeight: number;
-    brickPadding: number;
-    brickOffsetTop: number;
-    brickOffsetLeft: number;
+    brickWidth: number
+    brickHeight: number
+    brickPadding: number
+    brickOffsetTop: number
+    brickOffsetLeft: number
     brickLayout: Object[][];
   };
   player: string;
   scores: number;
-  status: keyof 'New Game' | 'Playing' | 'Paused';
+  status: 'READY' | 'NEW_GAME' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
 }
 
 export interface LogicContainerProps {
@@ -36,42 +36,39 @@ export interface LogicContainerProps {
   };
   player: string;
   scores: number;
-  status: keyof 'New Game' | 'Playing' | 'Paused';
+  status: 'READY' | 'NEW_GAME' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
   changeBrickStatus: (row: number, column: number) => void;
+  changeGameStatus: (status: string) => void;
+  lostALife: () => void;
   movePaddle: (mouseX: number) => void;
   increaseScore: () => void;
   setBrickCoordinates: (row: number, column: number, x: number, y: number) => void;
 }
-
-export interface MusicPlayerProps {
-//   currentSong: CurrentSong;
-//   currentTime: string;
-  
-}
-
 
 //
 // ACTIONS
 //
 
 export type ActionTypes =
-| PlayAction
+| ChangeGameStatusAction
 | SetBrickCoordinatesAction
 | IncreaseScoreAction
 | ChangeBrickStatusAction
-| MovePaddleAction;
+| MovePaddleAction
+| LostALifeAction;
 
 export enum TypeKeys {
   MOVE_PADDLE = 'canvas::MOVE_PADDLE',
-  PLAY = 'canvas::PLAY',
+  CHANGE_GAME_STATUS = 'canvas::CHANGE_GAME_STATUS',
   SET_BRICK_COORDINATES = 'canvas::SET_BRICK_COORDINATES',
   INCREASE_SCORE = 'canvas::INCREASE_SCORE',
   CHANGE_BRICK_STATUS = 'canvas::CHANGE_BRICK_STATUS',
+  LOST_A_LIFE = 'canvas::LOST_A_LIFE',
 }
 
-export interface PlayAction {
-  type: TypeKeys.PLAY;
-  songPosition: number;
+export interface ChangeGameStatusAction {
+  type: TypeKeys.CHANGE_GAME_STATUS;
+  status: string;
 }
 
 export interface SetBrickCoordinatesAction {
@@ -96,4 +93,8 @@ export interface ChangeBrickStatusAction {
 export interface MovePaddleAction {
   type: TypeKeys.MOVE_PADDLE;
   mouseX: number;
+}
+
+export interface LostALifeAction {
+  type: TypeKeys.LOST_A_LIFE;
 }

@@ -27,16 +27,18 @@ const initialState: InitialState = {
   },
   player: undefined,
   scores: undefined,
-  status: undefined,
+  status: 'READY',
 };
 
 const reducer = (state: InitialState = initialState, action: ActionTypes) => {
   switch (action.type) {
     
-    case TypeKeys.PLAY : {
+    case TypeKeys.CHANGE_GAME_STATUS : {
+      const { status } = action;
+      
       return {
         ...state,
-        status: 'Playing',
+        status,
       };
     }
     
@@ -93,6 +95,16 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
         currentGame: {
           ...state.currentGame,
           mouseX,
+        },
+      };
+    }
+    
+    case TypeKeys.LOST_A_LIFE : {
+      return {
+        ...state,
+        currentGame: {
+          ...state.currentGame,
+          lives: state.currentGame.lives - 1,
         },
       };
     }

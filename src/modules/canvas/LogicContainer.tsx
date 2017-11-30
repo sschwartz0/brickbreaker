@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
-import Canvas from './Canvas';
+import StartScreen from './StartScreen';
+import GameLevel from './GameLevel';
+import GameOverScreen from './GameOverScreen';
 import { LogicContainerProps } from './types';
-
 
 export default class LogicContainer extends PureComponent<LogicContainerProps> {
   
@@ -10,21 +11,40 @@ export default class LogicContainer extends PureComponent<LogicContainerProps> {
       currentGame,
       currentLevel,
       changeBrickStatus,
+      changeGameStatus,
       increaseScore,
+      lostALife,
       movePaddle,
       setBrickCoordinates,
+      status,
     } = this.props;
     
     return (
       <div className="canvas-container">
-        <Canvas
-          currentGame={currentGame}
-          currentLevel={currentLevel}
-          changeBrickStatus={changeBrickStatus}
-          increaseScore={increaseScore}
-          movePaddle={movePaddle}
-          setBrickCoordinates={setBrickCoordinates}
-        />
+        {status === 'GAME_OVER' && 
+          <GameOverScreen
+            changeGameStatus={changeGameStatus}
+          />
+        }
+        {status === 'READY' && 
+          <StartScreen
+            changeGameStatus={changeGameStatus}
+          />
+        }
+        {
+          (status === 'NEW_GAME' || status === 'PLAYING' || status === 'PAUSED') && 
+          <GameLevel
+            currentGame={currentGame}
+            currentLevel={currentLevel}
+            changeBrickStatus={changeBrickStatus}
+            changeGameStatus={changeGameStatus}
+            increaseScore={increaseScore}
+            lostALife={lostALife}
+            movePaddle={movePaddle}
+            setBrickCoordinates={setBrickCoordinates}
+            status={status}
+          />
+        }
         Score: {currentGame.score}
       </div>
     );
