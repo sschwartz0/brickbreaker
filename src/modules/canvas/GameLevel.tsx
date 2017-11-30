@@ -69,8 +69,8 @@ export default class GameLevel extends PureComponent<any> {
       else {
         this.ballHorizontal = 'left';
       }
-      const ratio = (150/20)/2
-      this.ballHorizontalSpeed = Math.abs(((this.ballX-this.props.currentGame.mouseX)/20)-ratio);
+      const ratio = (150/15)/2
+      this.ballHorizontalSpeed = Math.abs(((this.ballX-this.props.currentGame.mouseX)/15)-ratio);
     }
     
     if (this.ballY < 5)
@@ -88,6 +88,7 @@ export default class GameLevel extends PureComponent<any> {
     this.collisionDetection();
 
     if (this.ballY > this.canvas.height - 10) {
+      this.ballVerticalSpeed = 2;
       this.props.lostALife();
       clearInterval(this.dropBall);
       if (this.props.currentGame.lives === 0)
@@ -96,12 +97,6 @@ export default class GameLevel extends PureComponent<any> {
         this.props.changeGameStatus('PAUSED')
     }
   }
-
-  brickWidth = 75;
-  brickHeight = 20;
-  brickPadding = 2;
-  brickOffsetTop = 30;
-  brickOffsetLeft = 30;
   
   initialDrawBricks = () => {
     const {
