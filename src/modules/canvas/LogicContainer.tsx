@@ -8,6 +8,7 @@ export default class LogicContainer extends PureComponent<LogicContainerProps> {
   
   render () {
     const {
+      brickColors,
       currentGame,
       currentLevel,
       changeBrickStatus,
@@ -34,6 +35,7 @@ export default class LogicContainer extends PureComponent<LogicContainerProps> {
         {
           (status === 'NEW_GAME' || status === 'PLAYING' || status === 'PAUSED') && 
           <GameLevel
+            brickColors={brickColors}
             currentGame={currentGame}
             currentLevel={currentLevel}
             changeBrickStatus={changeBrickStatus}

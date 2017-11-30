@@ -5,6 +5,10 @@ import {
 } from './types';
 
 const initialState: InitialState = {
+  brickColors: {
+    1: '#0095DD',
+    2: '#0a74a8',
+  },
   currentGame: {
     level: 1,
     score: 0,
@@ -20,9 +24,9 @@ const initialState: InitialState = {
     brickOffsetTop: 30,
     brickOffsetLeft: 30,
     brickLayout: [
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }],
+      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }],
+      [{ x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }],
+      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 0 }],
     ],
   },
   player: undefined,
@@ -72,7 +76,7 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
       const { row, column } = action;
       
       const brickLayoutCopy: any = [...state.currentLevel.brickLayout]
-      brickLayoutCopy[row][column].status = 0;
+      brickLayoutCopy[row][column].status = brickLayoutCopy[row][column].status - 1;
       const score = state.currentGame.score + 10;
       
       return {

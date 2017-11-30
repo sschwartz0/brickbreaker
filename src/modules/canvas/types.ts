@@ -1,6 +1,9 @@
 // import { Dispatch } from 'redux';
 
 export interface InitialState {
+  brickColors: {
+    [index: number]: string;
+  }
   currentGame: {
     level: number;
     score: number;
@@ -23,6 +26,9 @@ export interface InitialState {
 }
 
 export interface LogicContainerProps {
+  brickColors: {
+    [index: number]: string;
+  },
   currentGame: {
     level: number;
     score: number;

@@ -9,7 +9,8 @@ import { InitialState } from './types';
 const mapStateToProps = (state: any, ownProps: {}) => {
   const canvas: InitialState = state.canvas;
   
-  const { 
+  const {
+    brickColors,
     currentGame,
     currentLevel,
     player,
@@ -18,6 +19,7 @@ const mapStateToProps = (state: any, ownProps: {}) => {
   } = canvas;
   
   return {
+    brickColors,
     currentGame,
     currentLevel,
     player,
@@ -41,6 +43,7 @@ connect<any, any>(mapStateToProps, mapDispatchToProps)(class DataContainer exten
 
   render () {
     const {
+      brickColors,
       currentGame,
       currentLevel,
       player,
@@ -56,6 +59,7 @@ connect<any, any>(mapStateToProps, mapDispatchToProps)(class DataContainer exten
     
     return (
       <LogicContainer
+        brickColors={brickColors}
         currentGame={currentGame}
         currentLevel={currentLevel}
         player={player}

@@ -42,7 +42,7 @@ export default class GameLevel extends PureComponent<any> {
 
       this.ball = new Path2D();
       this.ball.moveTo(0, 0);
-      this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI);
+      this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI, true);
       this.game.fillStyle = 'rgb(200, 0, 0)';
       this.game.fill(this.ball);
       this.moveBall();
@@ -53,7 +53,7 @@ export default class GameLevel extends PureComponent<any> {
       this.game.fill(this.paddle);
       
       this.drawBricks();
-    }, 10);
+    }, 1);
   }
 
   moveBall = () => {
@@ -63,77 +63,16 @@ export default class GameLevel extends PureComponent<any> {
       this.ballHorizontal = 'right';
     if (this.ballY > this.canvas.height - 35 && this.ballX < this.props.currentGame.mouseX + 150 && this.ballX > this.props.currentGame.mouseX) {
       this.ballVertical = 'up';
-      if (this.ballX > this.props.currentGame.mouseX + 75)
+      if (this.ballX > this.props.currentGame.mouseX + 75) {
         this.ballHorizontal = 'right';
-      else
-        this.ballHorizontal = 'left';
-      
-      
-      if (this.ballX > this.props.currentGame.mouseX + 145 || this.ballX < this.props.currentGame.mouseX + 5) {
-        // this.ballVerticalSpeed = 6;
-        this.ballHorizontalSpeed = 6.9;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 140 || this.ballX < this.props.currentGame.mouseX + 10){
-        // this.ballVerticalSpeed = 5.5;
-        this.ballHorizontalSpeed = 6.6;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 135 || this.ballX < this.props.currentGame.mouseX + 15){
-        // this.ballVerticalSpeed = 3.5;
-        this.ballHorizontalSpeed = 6.3;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 130 || this.ballX < this.props.currentGame.mouseX + 20){
-        // this.ballVerticalSpeed = 5.5;
-        this.ballHorizontalSpeed = 5.9;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 125 || this.ballX < this.props.currentGame.mouseX + 25){
-        // this.ballVerticalSpeed = 3.5;
-        this.ballHorizontalSpeed = 5.5;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 120 || this.ballX < this.props.currentGame.mouseX + 30){
-        // this.ballVerticalSpeed = 3.5;
-        this.ballHorizontalSpeed = 5.2;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 115 || this.ballX < this.props.currentGame.mouseX + 35){
-        // this.ballVerticalSpeed = 5.5;
-        this.ballHorizontalSpeed = 4.9;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 110 || this.ballX < this.props.currentGame.mouseX + 40){
-        // this.ballVerticalSpeed = 3.5;
-        this.ballHorizontalSpeed = 4.6;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 105 || this.ballX < this.props.currentGame.mouseX + 45){
-        // this.ballVerticalSpeed = 3;
-        this.ballHorizontalSpeed = 4.3;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 100 || this.ballX < this.props.currentGame.mouseX + 50){
-        // this.ballVerticalSpeed = 3.5;
-        this.ballHorizontalSpeed = 3.9;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 95 || this.ballX < this.props.currentGame.mouseX + 55){
-        // this.ballVerticalSpeed = 5.5;
-        this.ballHorizontalSpeed = 3.6;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 90 || this.ballX < this.props.currentGame.mouseX + 60){
-        // this.ballVerticalSpeed = 3.5;
-        this.ballHorizontalSpeed = 3.3;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 85 || this.ballX < this.props.currentGame.mouseX + 65){
-        // this.ballVerticalSpeed = 3;
-        this.ballHorizontalSpeed = 2.9;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 80 || this.ballX < this.props.currentGame.mouseX + 70){
-        // this.ballVerticalSpeed = 2.3;
-        this.ballHorizontalSpeed = 2.6;
-      }
-      else if (this.ballX > this.props.currentGame.mouseX + 75 || this.ballX < this.props.currentGame.mouseX + 75){
-        // this.ballVerticalSpeed = 2.0;
-        this.ballHorizontalSpeed = 2.3;
       }
       else {
-        // this.ballVerticalSpeed = 2;
-        this.ballHorizontalSpeed = 2;
+        this.ballHorizontal = 'left';
       }
+      const ratio = (150/20)/2
+      this.ballHorizontalSpeed = Math.abs(((this.ballX-this.props.currentGame.mouseX)/20)-ratio);
     }
+    
     if (this.ballY < 5)
       this.ballVertical = 'down';
 
@@ -166,6 +105,7 @@ export default class GameLevel extends PureComponent<any> {
   
   initialDrawBricks = () => {
     const {
+      brickColors,
       currentLevel: {
         brickHeight,
         brickWidth,
@@ -174,17 +114,19 @@ export default class GameLevel extends PureComponent<any> {
         brickOffsetTop,
         brickLayout,
       },
+      setBrickCoordinates,
     } = this.props;
     
     for (let r = 0; r < brickLayout.length; r++) {
       for (let c = 0; c < brickLayout[r].length; c++) {
-        if (brickLayout[r][c].status === 1) {
+        const brickStatus = brickLayout[r][c].status;
+        if (brickStatus > 0) {
           const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
           const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
-          this.props.setBrickCoordinates(r, c, brickX, brickY);
+          setBrickCoordinates(r, c, brickX, brickY);
           this.game.beginPath();
           this.game.rect(brickX, brickY, brickWidth, brickHeight);
-          this.game.fillStyle = '#0095DD';
+          this.game.fillStyle = brickColors[brickStatus];
           this.game.fill();
           this.game.closePath();
         }
@@ -201,12 +143,16 @@ export default class GameLevel extends PureComponent<any> {
 
     for (let r = 0; r < brickLayout.length; r++) {
       for (let c = 0; c < brickLayout[r].length; c++) {
-        if (brickLayout[r][c].status === 1) {
+        const brickStatus = brickLayout[r][c].status;
+        if (brickStatus > 0) {
           const brickX = brickLayout[r][c].x;
           const brickY = brickLayout[r][c].y;
           this.game.beginPath();
           this.game.rect(brickX, brickY, brickWidth, brickHeight);
-          this.game.fillStyle = '#0095DD';
+          if (brickStatus === 1)
+            this.game.fillStyle = '#0095DD';
+          else if (brickStatus === 2)
+            this.game.fillStyle = '#0a74a8';
           this.game.fill();
           this.game.closePath();
         }
@@ -227,7 +173,7 @@ export default class GameLevel extends PureComponent<any> {
     for (let r = 0; r < brickLayout.length; r++) {
       for (let c = 0; c < brickLayout[r].length; c++) {
         const brick =  brickLayout[r][c];
-        if (brickLayout[r][c].status === 1 && this.ballX > brick.x && this.ballX < brick.x + brickWidth && this.ballY > brick.y && this.ballY < brick.y + brickHeight) {
+        if (brickLayout[r][c].status > 0 && this.ballX > brick.x && this.ballX < brick.x + brickWidth && this.ballY > brick.y && this.ballY < brick.y + brickHeight) {
           this.ballHorizontal = this.ballHorizontal === 'left' ? 'right' : 'left';
           this.ballVertical = this.ballVertical === 'up' ? 'down' : 'up';
           changeBrickStatus(r, c)
