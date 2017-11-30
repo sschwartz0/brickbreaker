@@ -12,6 +12,8 @@ export default class GameLevel extends PureComponent<any> {
   ballY: number;
   ballHorizontal: string = 'right';
   ballVertical: string = 'down';
+  ballHorizontalSpeed: number = 2;
+  ballVerticalSpeed: number = 2;
   dropBall: any;
 
   componentDidMount() {
@@ -55,9 +57,9 @@ export default class GameLevel extends PureComponent<any> {
   }
 
   moveBall = () => {
-    if (this.ballX === this.canvas.width - 6)
+    if (this.ballX > this.canvas.width - 6)
       this.ballHorizontal = 'left';
-    if (this.ballX === 2)
+    if (this.ballX < 5)
       this.ballHorizontal = 'right';
     if (this.ballY > this.canvas.height - 35 && this.ballX < this.props.currentGame.mouseX + 150 && this.ballX > this.props.currentGame.mouseX) {
       this.ballVertical = 'up';
@@ -65,18 +67,84 @@ export default class GameLevel extends PureComponent<any> {
         this.ballHorizontal = 'right';
       else
         this.ballHorizontal = 'left';
+      
+      
+      if (this.ballX > this.props.currentGame.mouseX + 145 || this.ballX < this.props.currentGame.mouseX + 5) {
+        // this.ballVerticalSpeed = 6;
+        this.ballHorizontalSpeed = 6.9;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 140 || this.ballX < this.props.currentGame.mouseX + 10){
+        // this.ballVerticalSpeed = 5.5;
+        this.ballHorizontalSpeed = 6.6;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 135 || this.ballX < this.props.currentGame.mouseX + 15){
+        // this.ballVerticalSpeed = 3.5;
+        this.ballHorizontalSpeed = 6.3;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 130 || this.ballX < this.props.currentGame.mouseX + 20){
+        // this.ballVerticalSpeed = 5.5;
+        this.ballHorizontalSpeed = 5.9;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 125 || this.ballX < this.props.currentGame.mouseX + 25){
+        // this.ballVerticalSpeed = 3.5;
+        this.ballHorizontalSpeed = 5.5;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 120 || this.ballX < this.props.currentGame.mouseX + 30){
+        // this.ballVerticalSpeed = 3.5;
+        this.ballHorizontalSpeed = 5.2;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 115 || this.ballX < this.props.currentGame.mouseX + 35){
+        // this.ballVerticalSpeed = 5.5;
+        this.ballHorizontalSpeed = 4.9;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 110 || this.ballX < this.props.currentGame.mouseX + 40){
+        // this.ballVerticalSpeed = 3.5;
+        this.ballHorizontalSpeed = 4.6;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 105 || this.ballX < this.props.currentGame.mouseX + 45){
+        // this.ballVerticalSpeed = 3;
+        this.ballHorizontalSpeed = 4.3;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 100 || this.ballX < this.props.currentGame.mouseX + 50){
+        // this.ballVerticalSpeed = 3.5;
+        this.ballHorizontalSpeed = 3.9;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 95 || this.ballX < this.props.currentGame.mouseX + 55){
+        // this.ballVerticalSpeed = 5.5;
+        this.ballHorizontalSpeed = 3.6;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 90 || this.ballX < this.props.currentGame.mouseX + 60){
+        // this.ballVerticalSpeed = 3.5;
+        this.ballHorizontalSpeed = 3.3;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 85 || this.ballX < this.props.currentGame.mouseX + 65){
+        // this.ballVerticalSpeed = 3;
+        this.ballHorizontalSpeed = 2.9;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 80 || this.ballX < this.props.currentGame.mouseX + 70){
+        // this.ballVerticalSpeed = 2.3;
+        this.ballHorizontalSpeed = 2.6;
+      }
+      else if (this.ballX > this.props.currentGame.mouseX + 75 || this.ballX < this.props.currentGame.mouseX + 75){
+        // this.ballVerticalSpeed = 2.0;
+        this.ballHorizontalSpeed = 2.3;
+      }
+      else {
+        // this.ballVerticalSpeed = 2;
+        this.ballHorizontalSpeed = 2;
+      }
     }
-    if (this.ballY === 2)
+    if (this.ballY < 5)
       this.ballVertical = 'down';
 
     if (this.ballHorizontal === 'right')
-      this.ballX += 2;
+      this.ballX += this.ballHorizontalSpeed;
     if (this.ballHorizontal === 'left')
-      this.ballX -= 2;
+      this.ballX -= this.ballHorizontalSpeed;
     if (this.ballVertical === 'up')
-      this.ballY -= 2;
+      this.ballY -= this.ballVerticalSpeed;
     if (this.ballVertical === 'down')
-      this.ballY += 2;
+      this.ballY += this.ballVerticalSpeed;
 
     this.collisionDetection();
 
