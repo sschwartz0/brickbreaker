@@ -6,18 +6,23 @@ import {
 
 const initialState: InitialState = {
   currentGame: {
-    level: undefined,
-    score: undefined,
-    lives: undefined,
+    level: 1,
+    score: 0,
+    lives: 3,
     mouseX: 175,
   },
   currentLevel: {
-    totalBricks: undefined,
+    totalBricks: 15,
     bricksLeft: undefined,
+    brickWidth: 75,
+    brickHeight: 20,
+    brickPadding: 2,
+    brickOffsetTop: 30,
+    brickOffsetLeft: 30,
     brickLayout: [
-      [undefined, true, true, true, undefined],
-      [true, true, true, true, true],
-      [undefined, true, true, true, undefined],
+      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }],
+      [{ x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }],
+      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }],
     ],
   },
   player: undefined,
@@ -35,10 +40,49 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
       };
     }
     
-    case TypeKeys.PAUSE : {
+    case TypeKeys.INCREASE_SCORE : {
+      const { score } = action;
       return {
         ...state,
-        status: 'Paused',
+        currentGame: {
+          score,
+        },
+      };
+    }
+    
+    case TypeKeys.SET_BRICK_COORDINATES : {
+      const { row, column, x, y } = action;
+      
+      const brickLayoutCopy: any = [...state.currentLevel.brickLayout]
+      brickLayoutCopy[row][column].x = x;
+      brickLayoutCopy[row][column].y = y;
+      
+      return {
+        ...state,
+        currentLevel: {
+          ...state.currentLevel,
+          brickLayout: brickLayoutCopy,
+        },
+      };
+    }
+    
+    case TypeKeys.CHANGE_BRICK_STATUS : {
+      const { row, column } = action;
+      
+      const brickLayoutCopy: any = [...state.currentLevel.brickLayout]
+      brickLayoutCopy[row][column].status = 0;
+      const score = state.currentGame.score + 10;
+      
+      return {
+        ...state,
+        currentLevel: {
+          ...state.currentLevel,
+          brickLayout: brickLayoutCopy,
+        },
+        currentGame: {
+          ...state.currentGame,
+          score,
+        }
       };
     }
 
