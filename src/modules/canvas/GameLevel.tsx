@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import { setInterval, clearInterval } from 'timers';
 // import { LogicContainerProps } from './types';
 
 export default class GameLevel extends PureComponent<any> {
@@ -12,11 +11,10 @@ export default class GameLevel extends PureComponent<any> {
   ballY: number;
   ballHorizontal: string = 'right';
   ballVertical: string = 'down';
-  ballHorizontalSpeed: number = 2;
-  ballVerticalSpeed: number = 2;
+  ballHorizontalSpeed: number = 6;
+  ballVerticalSpeed: number = 6;
   dropBall: any;
   whichKey: string = null;
-  paddleWidth: 100;
   
   moveThePaddle = () => {
     if (this.whichKey === 'left' && this.props.currentGame.mouseX > 0) {
@@ -31,9 +29,11 @@ export default class GameLevel extends PureComponent<any> {
   }
 
   componentDidMount() {
-    (function () {
-      var requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+    (() => {
+      const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
       window.requestAnimationFrame = requestAnimationFrame;
+      const cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelAnimationFrame;
+      window.cancelAnimationFrame = cancelAnimationFrame;
     })();
     this.canvas = document.getElementById('game') as HTMLCanvasElement;
     
@@ -42,11 +42,12 @@ export default class GameLevel extends PureComponent<any> {
     // });
     
     this.canvas.addEventListener('click', () => {
-      clearInterval(this.dropBall);
+      this.props.changeGameStatus('PLAYING')
       this.ballHorizontal = 'right';
       this.ballVertical = 'down';
-      if (this.props.status !== 'PLAYING')
-        this.startGame();
+      this.ballX = this.canvas.width / 2;
+      this.ballY = 0;
+      this.dropBall = window.requestAnimationFrame(this.startGame);
     });
     
     document.body.addEventListener('keydown', (e: KeyboardEvent) => {
@@ -65,36 +66,27 @@ export default class GameLevel extends PureComponent<any> {
         this.whichKey = null;
     })
     
-    
     this.game = this.canvas.getContext('2d');
-    
     this.initialDrawBricks()
   }
 
+  
   startGame = () => {
-    this.ballX = this.canvas.width / 2;
-    this.ballY = 0;
+    this.game.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.dropBall = setInterval(() => {
-      this.game.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ball = new Path2D();
+    this.ball.moveTo(0, 0);
+    this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI, true);
+    this.game.fillStyle = 'rgb(200, 0, 0)';
+    this.game.fill(this.ball);
 
-      this.ball = new Path2D();
-      this.ball.moveTo(0, 0);
-      this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI, true);
-      this.game.fillStyle = 'rgb(200, 0, 0)';
-      this.game.fill(this.ball);
-      this.moveBall();
+    this.paddle = new Path2D();
+    this.paddle.rect(this.props.currentGame.mouseX, 570, 150, 15);
+    this.game.fillStyle = 'rgb(0, 0, 0)';
+    this.game.fill(this.paddle);
+    
+    this.drawBricks();
 
-      this.paddle = new Path2D();
-      this.paddle.rect(this.props.currentGame.mouseX, 570, 150, 15);
-      this.game.fillStyle = 'rgb(0, 0, 0)';
-      this.game.fill(this.paddle);
-      
-      this.drawBricks();
-    }, 1);
-  }
-
-  moveBall = () => {
     if (this.ballX > this.canvas.width - 6)
       this.ballHorizontal = 'left';
     if (this.ballX < 5)
@@ -107,8 +99,8 @@ export default class GameLevel extends PureComponent<any> {
       else {
         this.ballHorizontal = 'left';
       }
-      const ratio = (150/15)/2
-      this.ballHorizontalSpeed = Math.abs(((this.ballX-this.props.currentGame.mouseX)/15)-ratio);
+      const ratio = (150/10)/2
+      this.ballHorizontalSpeed = Math.abs(((this.ballX-this.props.currentGame.mouseX)/10)-ratio);
     }
     
     if (this.ballY < 5)
@@ -126,14 +118,22 @@ export default class GameLevel extends PureComponent<any> {
     this.collisionDetection();
 
     if (this.ballY > this.canvas.height - 10) {
-      this.ballVerticalSpeed = 2;
+      this.ballY = 15;
+      this.ballHorizontalSpeed = 4;
       this.props.lostALife();
-      clearInterval(this.dropBall);
-      if (this.props.currentGame.lives === 0)
+
+      if (this.props.currentGame.lives === 0) {
         this.props.changeGameStatus('GAME_OVER');
-      else
-        this.props.changeGameStatus('PAUSED')
+      }
+      else {
+        console.log('lost a life')
+      }
     }
+    
+    if (this.props.status === 'PAUSED')
+      window.cancelAnimationFrame(this.dropBall)
+    else 
+      this.dropBall = window.requestAnimationFrame(this.startGame);
   }
   
   initialDrawBricks = () => {
@@ -216,29 +216,12 @@ export default class GameLevel extends PureComponent<any> {
   }
   
   pause = () => {
-    clearInterval(this.dropBall)
+    window.cancelAnimationFrame(this.dropBall)
     this.props.changeGameStatus('PAUSED')
   }
   
   resume = () => {
-    this.dropBall = setInterval(() => {
-      this.game.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-      this.ball = new Path2D();
-      this.ball.moveTo(0, 0);
-      this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI);
-      this.game.fillStyle = 'rgb(200, 0, 0)';
-      this.game.fill(this.ball);
-      this.moveBall();
-
-      this.paddle = new Path2D();
-      this.paddle.rect(this.props.currentGame.mouseX, 570, 150, 15);
-      this.game.fillStyle = 'rgb(0, 0, 0)';
-      this.game.fill(this.paddle);
-      
-      this.drawBricks();
-    }, 10);
-    
+    this.dropBall = window.requestAnimationFrame(this.startGame);
     this.props.changeGameStatus('PLAYING')
   }
 

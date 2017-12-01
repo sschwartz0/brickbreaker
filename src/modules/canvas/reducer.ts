@@ -110,6 +110,7 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
           ...state.currentGame,
           lives: state.currentGame.lives - 1,
         },
+        status: 'PAUSED',
       };
     }
 
