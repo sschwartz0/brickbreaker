@@ -20,7 +20,7 @@ export default class GameLevel extends PureComponent<any> {
     if (this.whichKey === 'left' && this.props.currentGame.mouseX > 0) {
       this.props.movePaddle(this.props.currentGame.mouseX - 5)
     }
-    if (this.whichKey === 'right' && this.props.currentGame.mouseX + 150 < this.canvas.width) {
+    if (this.whichKey === 'right' && this.props.currentGame.mouseX + 75 < this.canvas.width) {
       this.props.movePaddle(this.props.currentGame.mouseX + 5)
     }
     if (this.whichKey !== null) {
@@ -37,9 +37,9 @@ export default class GameLevel extends PureComponent<any> {
     })();
     this.canvas = document.getElementById('game') as HTMLCanvasElement;
     
-    // this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
-    //   this.props.movePaddle(e.screenX - 75);
-    // });
+    this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
+      this.props.movePaddle(e.screenX - 37.5);
+    });
     
     this.canvas.addEventListener('click', () => {
       this.props.changeGameStatus('PLAYING')
@@ -47,6 +47,7 @@ export default class GameLevel extends PureComponent<any> {
       this.ballVertical = 'down';
       this.ballX = this.canvas.width / 2;
       this.ballY = 0;
+      this.initialDrawBricks();
       this.dropBall = window.requestAnimationFrame(this.startGame);
     });
     
@@ -81,7 +82,7 @@ export default class GameLevel extends PureComponent<any> {
     this.game.fill(this.ball);
 
     this.paddle = new Path2D();
-    this.paddle.rect(this.props.currentGame.mouseX, 570, 150, 15);
+    this.paddle.rect(this.props.currentGame.mouseX, 570, 75, 15);
     this.game.fillStyle = 'rgb(0, 0, 0)';
     this.game.fill(this.paddle);
     
@@ -91,15 +92,15 @@ export default class GameLevel extends PureComponent<any> {
       this.ballHorizontal = 'left';
     if (this.ballX < 5)
       this.ballHorizontal = 'right';
-    if (this.ballY > this.canvas.height - 35 && this.ballX < this.props.currentGame.mouseX + 150 && this.ballX > this.props.currentGame.mouseX) {
+    if (this.ballY > this.canvas.height - 35 && this.ballX < this.props.currentGame.mouseX + 75 && this.ballX > this.props.currentGame.mouseX) {
       this.ballVertical = 'up';
-      if (this.ballX > this.props.currentGame.mouseX + 75) {
+      if (this.ballX > this.props.currentGame.mouseX + 37.5) {
         this.ballHorizontal = 'right';
       }
       else {
         this.ballHorizontal = 'left';
       }
-      const ratio = (150/10)/2
+      const ratio = (75/10)/2
       this.ballHorizontalSpeed = Math.abs(((this.ballX-this.props.currentGame.mouseX)/10)-ratio);
     }
     
@@ -207,7 +208,6 @@ export default class GameLevel extends PureComponent<any> {
       for (let c = 0; c < brickLayout[r].length; c++) {
         const brick =  brickLayout[r][c];
         if (brickLayout[r][c].status > 0 && this.ballX > brick.x && this.ballX < brick.x + brickWidth && this.ballY > brick.y && this.ballY < brick.y + brickHeight) {
-          this.ballHorizontal = this.ballHorizontal === 'left' ? 'right' : 'left';
           this.ballVertical = this.ballVertical === 'up' ? 'down' : 'up';
           changeBrickStatus(r, c)
         }
@@ -226,12 +226,11 @@ export default class GameLevel extends PureComponent<any> {
   }
 
   render() {
-
     const { } = this.props;
 
     return (
       <div className="canvas-container">
-        <canvas id="game" width="600px" height="600px"></canvas>
+        <canvas id="game" width="400px" height="600px"></canvas>
         <p>Lives: {this.props.currentGame.lives}</p>
         <p><button onClick={this.pause}>Pause</button></p>
         <p><button onClick={this.resume}>Resume</button></p>

@@ -18,10 +18,10 @@ const initialState: InitialState = {
   currentLevel: {
     totalBricks: 15,
     bricksLeft: undefined,
-    brickWidth: 50,
+    brickWidth: 40,
     brickHeight: 20,
-    brickPadding: 2,
-    brickOffsetTop: 30,
+    brickPadding: 1,
+    brickOffsetTop: 90,
     brickOffsetLeft: 30,
     brickLayout: [
       [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 0 }],
@@ -109,6 +109,10 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
         currentGame: {
           ...state.currentGame,
           lives: state.currentGame.lives - 1,
+        },
+        currentLevel: {
+          ...state.currentLevel,
+          brickOffsetTop: state.currentLevel.brickOffsetTop + 30,
         },
         status: 'PAUSED',
       };
