@@ -15,12 +15,32 @@ export default class GameLevel extends PureComponent<any> {
   ballHorizontalSpeed: number = 2;
   ballVerticalSpeed: number = 2;
   dropBall: any;
+  whichKey: string = null;
+  paddleWidth: 100;
+  
+  moveThePaddle = () => {
+    if (this.whichKey === 'left' && this.props.currentGame.mouseX > 0) {
+      this.props.movePaddle(this.props.currentGame.mouseX - 5)
+    }
+    if (this.whichKey === 'right' && this.props.currentGame.mouseX + 150 < this.canvas.width) {
+      this.props.movePaddle(this.props.currentGame.mouseX + 5)
+    }
+    if (this.whichKey !== null) {
+      window.requestAnimationFrame(this.moveThePaddle);
+    }
+  }
 
   componentDidMount() {
+    (function () {
+      var requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame;
+      window.requestAnimationFrame = requestAnimationFrame;
+    })();
     this.canvas = document.getElementById('game') as HTMLCanvasElement;
-    this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
-      this.props.movePaddle(e.screenX - 75);
-    });
+    
+    // this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
+    //   this.props.movePaddle(e.screenX - 75);
+    // });
+    
     this.canvas.addEventListener('click', () => {
       clearInterval(this.dropBall);
       this.ballHorizontal = 'right';
@@ -28,6 +48,24 @@ export default class GameLevel extends PureComponent<any> {
       if (this.props.status !== 'PLAYING')
         this.startGame();
     });
+    
+    document.body.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        this.whichKey = 'left'
+        window.requestAnimationFrame(this.moveThePaddle);
+      }
+      if (e.key === 'ArrowRight') {
+        this.whichKey = 'right'
+        window.requestAnimationFrame(this.moveThePaddle);
+      }
+    })
+    
+    document.body.addEventListener('keyup', (e: any) => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') 
+        this.whichKey = null;
+    })
+    
+    
     this.game = this.canvas.getContext('2d');
     
     this.initialDrawBricks()
