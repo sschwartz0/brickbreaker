@@ -38,7 +38,10 @@ export default class GameLevel extends PureComponent<any> {
     this.canvas = document.getElementById('game') as HTMLCanvasElement;
     
     this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
-      this.props.movePaddle(e.screenX - 37.5);
+      const canvasDiv = document.querySelector('.canvas-container');
+      const canvasOffsetLeft = canvasDiv.getBoundingClientRect().left;
+      const paddleX = e.screenX - canvasOffsetLeft - 37.5;
+      this.props.movePaddle(paddleX);
     });
     
     this.canvas.addEventListener('click', () => {
@@ -153,6 +156,11 @@ export default class GameLevel extends PureComponent<any> {
       },
       setBrickCoordinates,
     } = this.props;
+    
+    this.paddle = new Path2D();
+    this.paddle.rect(0, 570, 75, 15);
+    this.game.fillStyle = 'rgb(86, 185, 208)';
+    this.game.fill(this.paddle);
     
     for (let r = 0; r < brickLayout.length; r++) {
       for (let c = 0; c < brickLayout[r].length; c++) {

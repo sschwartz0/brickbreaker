@@ -25,7 +25,7 @@ export interface InitialState {
   status: 'READY' | 'NEW_GAME' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
 }
 
-export interface LogicContainerProps {
+export interface DisplayContainerProps {
   brickColors: {
     [index: number]: string;
   },

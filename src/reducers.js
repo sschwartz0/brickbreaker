@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import canvas from './modules/canvas/reducer'
+import canvas from './modules/Game/reducer'
 
 export default combineReducers({
   canvas,

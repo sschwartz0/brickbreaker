@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import LogicContainer from './LogicContainer';
+import DisplayContainer from './DisplayContainer';
 import { changeBrickLayout, changeGameStatus, changeBrickStatus, movePaddle, increaseScore, setBrickCoordinates, lostALife } from './actions';
 import { InitialState } from './types';
 
@@ -60,7 +60,7 @@ connect<any, any>(mapStateToProps, mapDispatchToProps)(class DataContainer exten
     } = this.props;
     
     return (
-      <LogicContainer
+      <DisplayContainer
         brickColors={brickColors}
         currentGame={currentGame}
         currentLevel={currentLevel}

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import DataContainer from './canvas/DataContainer';
+import DataContainer from './Game/DataContainer';
 
 export default class App extends PureComponent {
   render() {
