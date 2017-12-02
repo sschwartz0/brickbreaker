@@ -43,7 +43,6 @@ export interface LogicContainerProps {
   player: string;
   scores: number;
   status: 'READY' | 'NEW_GAME' | 'PLAYING' | 'PAUSED' | 'GAME_OVER';
-  changeBrickLayout: (row: number, column: number) => void;
   changeBrickStatus: (row: number, column: number) => void;
   changeGameStatus: (status: string) => void;
   lostALife: () => void;
@@ -62,8 +61,7 @@ export type ActionTypes =
 | IncreaseScoreAction
 | ChangeBrickStatusAction
 | MovePaddleAction
-| LostALifeAction
-| ChangeBrickLayoutAction;
+| LostALifeAction;
 
 export enum TypeKeys {
   MOVE_PADDLE = 'canvas::MOVE_PADDLE',
@@ -72,7 +70,6 @@ export enum TypeKeys {
   INCREASE_SCORE = 'canvas::INCREASE_SCORE',
   CHANGE_BRICK_STATUS = 'canvas::CHANGE_BRICK_STATUS',
   LOST_A_LIFE = 'canvas::LOST_A_LIFE',
-  CHANGE_BRICK_LAYOUT = 'canvas::CHANGE_BRICK_LAYOUT',
 }
 
 export interface ChangeGameStatusAction {
@@ -106,11 +103,4 @@ export interface MovePaddleAction {
 
 export interface LostALifeAction {
   type: TypeKeys.LOST_A_LIFE;
-}
-
-export interface ChangeBrickLayoutAction {
-  type: TypeKeys.CHANGE_BRICK_LAYOUT;
-  row: number;
-  column: number;
-  status: number,
 }

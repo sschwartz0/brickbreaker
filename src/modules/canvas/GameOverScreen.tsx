@@ -3,20 +3,17 @@ import React, { PureComponent } from 'react';
 
 export default class GameOverScreen extends PureComponent<any> {
 
-  componentDidMount() {
-  
-    // document.body.addEventListener('click', () => {
-    //   this.props.changeGameStatus('PLAYING')
-    // });
+  startNewGame = () => {
+    this.props.changeGameStatus('NEW_GAME')
   }
 
 
   render() {
 
-
     return (
-      <div className="canvas-container">
-        Game Over!
+      <div className="game-over-container">
+        <div className="title">GAME OVER!</div>
+        <button className="play-button" onClick={this.startNewGame}>PLAY AGAIN</button>
       </div>
     );
   }

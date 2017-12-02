@@ -6,7 +6,6 @@ import {
 
 const initialState: InitialState = {
   brickColors: {
-    0: '#FFFFFF',
     1: '#0095DD',
     2: '#0a74a8',
   },
@@ -28,12 +27,6 @@ const initialState: InitialState = {
       [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 0 }],
       [{ x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }],
       [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
     ],
   },
   player: undefined,
@@ -123,19 +116,6 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
         },
         status: 'PAUSED',
       };
-    }
-    
-    case TypeKeys.CHANGE_BRICK_LAYOUT: {
-      const { column, row, status } = action;
-      const layoutCopy: any = [...state.currentLevel.brickLayout]
-      layoutCopy[row][column].status = status;
-      return {
-        ...state,
-        currentLevel: {
-          ...state.currentLevel,
-          brickLayout: layoutCopy,
-        }
-      }
     }
 
     default:

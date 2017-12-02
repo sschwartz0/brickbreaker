@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import LogicContainer from './LogicContainer';
-import { changeBrickLayout, changeGameStatus, changeBrickStatus, movePaddle, increaseScore, setBrickCoordinates, lostALife } from './actions';
+import { changeGameStatus, changeBrickStatus, movePaddle, increaseScore, setBrickCoordinates, lostALife } from './actions';
 import { InitialState } from './types';
 
 
@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => bindActionCreators({
   setBrickCoordinates,
   changeGameStatus,
   changeBrickStatus,
-  changeBrickLayout,
   increaseScore,
   lostALife,
 }, dispatch);
@@ -50,7 +49,6 @@ connect<any, any>(mapStateToProps, mapDispatchToProps)(class DataContainer exten
       player,
       scores,
       status,
-      changeBrickLayout,
       changeBrickStatus,
       changeGameStatus,
       increaseScore,
@@ -67,7 +65,6 @@ connect<any, any>(mapStateToProps, mapDispatchToProps)(class DataContainer exten
         player={player}
         scores={scores}
         status={status}
-        changeBrickLayout={changeBrickLayout}
         changeBrickStatus={changeBrickStatus}
         changeGameStatus={changeGameStatus}
         increaseScore={increaseScore}

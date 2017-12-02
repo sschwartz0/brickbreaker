@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import StartScreen from './StartScreen';
 import GameLevel from './GameLevel';
 import GameOverScreen from './GameOverScreen';
-import CreateLevel from './CreateLevel';
 import { LogicContainerProps } from './types';
 
 export default class LogicContainer extends PureComponent<LogicContainerProps> {
@@ -12,7 +11,6 @@ export default class LogicContainer extends PureComponent<LogicContainerProps> {
       brickColors,
       currentGame,
       currentLevel,
-      changeBrickLayout,
       changeBrickStatus,
       changeGameStatus,
       increaseScore,
@@ -24,12 +22,6 @@ export default class LogicContainer extends PureComponent<LogicContainerProps> {
     
     return (
       <div className="canvas-container">
-        {status !== 'READY' && 
-          <div className="stats-container">
-            <div className="score">Score: {currentGame.score}</div>
-            <div className="lives">Lives: {currentGame.lives}</div>
-         </div>
-        }
         {status === 'GAME_OVER' && 
           <GameOverScreen
             changeGameStatus={changeGameStatus}
@@ -55,11 +47,7 @@ export default class LogicContainer extends PureComponent<LogicContainerProps> {
             status={status}
           />
         }
-        <CreateLevel
-          brickColors={brickColors}
-          currentLevel={currentLevel}
-          changeBrickLayout={changeBrickLayout}
-        />
+        Score: {currentGame.score}
       </div>
     );
   }

@@ -6,12 +6,22 @@ export default class StartScreen extends PureComponent<any> {
   startNewGame = () => {
     this.props.changeGameStatus('NEW_GAME')
   }
+  
+  componentDidMount() {
+    document.body.addEventListener('click', this.startNewGame)
+  }
+  
+  componentWillUnmount() {
+    document.body.removeEventListener('click', this.startNewGame)
+  }
+
 
   render() {
+
+
     return (
-      <div className="start-screen-container">
-        <div className="title">BRICKBREAKER</div>
-        <button className="play-button" onClick={this.startNewGame}>PLAY</button>
+      <div className="canvas-container">
+        Click anywhere to start playing
       </div>
     );
   }

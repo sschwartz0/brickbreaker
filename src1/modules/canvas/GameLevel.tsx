@@ -11,8 +11,8 @@ export default class GameLevel extends PureComponent<any> {
   ballY: number;
   ballHorizontal: string = 'right';
   ballVertical: string = 'down';
-  ballHorizontalSpeed: number = 3;
-  ballVerticalSpeed: number = 3;
+  ballHorizontalSpeed: number = 6;
+  ballVerticalSpeed: number = 6;
   dropBall: any;
   whichKey: string = null;
   
@@ -60,9 +60,6 @@ export default class GameLevel extends PureComponent<any> {
         this.whichKey = 'right'
         window.requestAnimationFrame(this.moveThePaddle);
       }
-      if (e.keyCode === 32) {
-        this.props.status === 'PLAYING' ? this.props.changeGameStatus('PAUSED') : this.props.changeGameStatus('PLAYING');
-      }
     })
     
     document.body.addEventListener('keyup', (e: any) => {
@@ -81,12 +78,12 @@ export default class GameLevel extends PureComponent<any> {
     this.ball = new Path2D();
     this.ball.moveTo(0, 0);
     this.ball.arc(this.ballX, this.ballY, 5, 0, 2 * Math.PI, true);
-    this.game.fillStyle = 'rgb(242, 76, 39)';
+    this.game.fillStyle = 'rgb(200, 0, 0)';
     this.game.fill(this.ball);
 
     this.paddle = new Path2D();
     this.paddle.rect(this.props.currentGame.mouseX, 570, 75, 15);
-    this.game.fillStyle = 'rgb(86, 185, 208)';
+    this.game.fillStyle = 'rgb(0, 0, 0)';
     this.game.fill(this.paddle);
     
     this.drawBricks();
@@ -234,6 +231,9 @@ export default class GameLevel extends PureComponent<any> {
     return (
       <div className="canvas-container">
         <canvas id="game" width="400px" height="600px"></canvas>
+        <p>Lives: {this.props.currentGame.lives}</p>
+        <p><button onClick={this.pause}>Pause</button></p>
+        <p><button onClick={this.resume}>Resume</button></p>
       </div>
     );
   }

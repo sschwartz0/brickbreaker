@@ -7,7 +7,6 @@ import {
   IncreaseScoreAction,
   LostALifeAction,
   TypeKeys,
-  ChangeBrickLayoutAction,
 } from './types';
 
 export const changeGameStatus = (status: string) => (dispatch: Dispatch<ChangeGameStatusAction>) => {
@@ -58,13 +57,4 @@ export const movePaddle = (mouseX: number) => (dispatch: Dispatch<MovePaddleActi
 
 export const lostALife = () => (dispatch: Dispatch<LostALifeAction>) => {
   dispatch({ type: TypeKeys.LOST_A_LIFE });
-};
-
-export const changeBrickLayout = (row: number, column: number, status: number) => (dispatch: Dispatch<ChangeBrickLayoutAction>) => {
-  dispatch({ 
-    type: TypeKeys.CHANGE_BRICK_LAYOUT,
-    row,
-    column,
-    status,
-  });
 };
