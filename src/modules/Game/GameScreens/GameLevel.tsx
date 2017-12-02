@@ -6,6 +6,7 @@ export default class GameLevel extends PureComponent<any> {
   canvas: any;
   game: any;
   paddle: any;
+  paddleX: number;
   ball: any;
   ballX: number;
   ballY: number;
@@ -40,16 +41,16 @@ export default class GameLevel extends PureComponent<any> {
     this.canvas.addEventListener('mousemove', (e: MouseEvent) => {
       const canvasDiv = document.querySelector('.canvas-container');
       const canvasOffsetLeft = canvasDiv.getBoundingClientRect().left;
-      const paddleX = e.screenX - canvasOffsetLeft - 37.5;
-      this.props.movePaddle(paddleX);
+      this.paddleX = e.screenX - canvasOffsetLeft - 37.5;
+      this.props.movePaddle(this.paddleX);
     });
     
     this.canvas.addEventListener('click', () => {
       this.props.changeGameStatus('PLAYING')
       this.ballHorizontal = 'right';
-      this.ballVertical = 'down';
-      this.ballX = this.canvas.width / 2;
-      this.ballY = 0;
+      this.ballVertical = 'up';
+      this.ballX = this.paddleX;
+      this.ballY = 565;
       this.initialDrawBricks();
       this.dropBall = window.requestAnimationFrame(this.startGame);
     });
@@ -76,7 +77,6 @@ export default class GameLevel extends PureComponent<any> {
     this.game = this.canvas.getContext('2d');
     this.initialDrawBricks()
   }
-
   
   startGame = () => {
     this.game.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -125,7 +125,8 @@ export default class GameLevel extends PureComponent<any> {
     this.collisionDetection();
 
     if (this.ballY > this.canvas.height - 10) {
-      this.ballY = 15;
+      this.ballY = 565;
+      this.ballX = this.paddleX;
       this.ballHorizontalSpeed = 4;
       this.props.lostALife();
 

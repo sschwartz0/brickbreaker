@@ -17,11 +17,11 @@ export default class CreateLevel extends PureComponent<any> {
   render() {
     const {
       brickColor,
-      status,
+      // status,
     } = this.props;
     
     return (
-        <div className="create-brick" style={{ backgroundColor: `${brickColor}` }}onClick={this.changeBrick}>{status}</div>
+        <div className="create-brick" style={{ backgroundColor: `${brickColor}` }} onClick={this.changeBrick}></div>
     );
   }
 }
