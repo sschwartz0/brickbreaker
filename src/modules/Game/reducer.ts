@@ -1,3 +1,4 @@
+import levels from './levels';
 import { 
   ActionTypes,
   InitialState,
@@ -17,24 +18,12 @@ const initialState: InitialState = {
     mouseX: 175,
   },
   currentLevel: {
-    totalBricks: 15,
-    bricksLeft: undefined,
     brickWidth: 40,
     brickHeight: 20,
-    brickPadding: 1,
+    brickPadding: 0,
     brickOffsetTop: 90,
     brickOffsetLeft: 30,
-    brickLayout: [
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 2 }, { x: 0, y: 0, status: 1 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-      [{ x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }, { x: 0, y: 0, status: 0 }],
-    ],
+    brickLayout: levels[0],
   },
   player: undefined,
   scores: undefined,

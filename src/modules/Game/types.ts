@@ -11,8 +11,6 @@ export interface InitialState {
     mouseX: number;
   };
   currentLevel: {
-    totalBricks: number;
-    bricksLeft: number;
     brickWidth: number
     brickHeight: number
     brickPadding: number
