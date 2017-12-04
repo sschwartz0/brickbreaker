@@ -1,7 +1,7 @@
 {
-  "name": "thedapperdons",
+  "name": "brickbreaker",
   "version": "0.0.1",
-  "description": "thedapperdons",
+  "description": "brickbreaker",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --open",
@@ -12,19 +12,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sschwartz0/thedapperdons"
+    "url": "git+https://github.com/sschwartz0/brickbreaker"
   },
   "author": "Scott Schwartz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sschwartz0/thedapperdons/issues"
+    "url": "https://github.com/sschwartz0/brickbreaker/issues"
   },
-  "homepage": "https://github.com/sschwartz0/thedapperdons#readme",
+  "homepage": "https://github.com/sschwartz0/brickbreaker#readme",
   "dependencies": {
+    "@types/clipboard": "^1.5.35",
     "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
     "@types/react-redux": "^5.0.13",
+    "clipboard": "^1.7.1",
     "express": "^4.16.2",
     "graphql": "^0.11.7",
     "lodash": "^4.17.4",

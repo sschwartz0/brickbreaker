@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import CreateBrick from './CreateBrick';
+import Clipboard from 'clipboard';
 
 export default class CreateLevel extends PureComponent<any> {
 
@@ -7,6 +8,9 @@ export default class CreateLevel extends PureComponent<any> {
     this.props.changeGameStatus('NEW_GAME')
   }
 
+  componentDidMount() {
+    new Clipboard('.copy');
+  }
 
   render() {
     const {
@@ -45,6 +49,9 @@ export default class CreateLevel extends PureComponent<any> {
             )
           })}
         </div>
+        <span className="copy" data-clipboard-text={JSON.stringify(brickLayout)}>
+          Copy JSON to clipboard
+        </span>
       </div>
     );
   }

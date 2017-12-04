@@ -18,6 +18,8 @@ const initialState: InitialState = {
     mouseX: 175,
   },
   currentLevel: {
+    level: 0,
+    bricksLeft: undefined,
     brickWidth: 40,
     brickHeight: 20,
     brickPadding: 0,
@@ -74,17 +76,27 @@ const reducer = (state: InitialState = initialState, action: ActionTypes) => {
       const brickLayoutCopy: any = [...state.currentLevel.brickLayout]
       brickLayoutCopy[row][column].status = brickLayoutCopy[row][column].status - 1;
       const score = state.currentGame.score + 10;
+      const bricks = brickLayoutCopy.reduce((acc: Object[], next: Object[]) => {
+        return acc = [...acc, ...next]
+      }, []);
+      const bricksLeft = bricks.filter(({ status }: {status: number}) => status > 0).length;
+      const brickLayout = bricksLeft === 0 ? levels[state.currentLevel.level + 1] : brickLayoutCopy;
+      const level = bricksLeft === 0 ? state.currentLevel.level + 1 : state.currentLevel.level;
+      const status = bricksLeft === 0 ? 'PAUSED' : 'PLAYING';
       
       return {
         ...state,
         currentLevel: {
           ...state.currentLevel,
-          brickLayout: brickLayoutCopy,
+          level,
+          brickLayout,
+          bricksLeft,
         },
         currentGame: {
           ...state.currentGame,
           score,
-        }
+        },
+        status,
       };
     }
 

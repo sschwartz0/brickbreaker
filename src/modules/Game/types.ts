@@ -11,11 +11,13 @@ export interface InitialState {
     mouseX: number;
   };
   currentLevel: {
-    brickWidth: number
-    brickHeight: number
-    brickPadding: number
-    brickOffsetTop: number
-    brickOffsetLeft: number
+    level: number;
+    bricksLeft: number;
+    brickWidth: number;
+    brickHeight: number;
+    brickPadding: number;
+    brickOffsetTop: number;
+    brickOffsetLeft: number;
     brickLayout: Object[][];
   };
   player: string;
