@@ -32,14 +32,14 @@ export default class CreateLevel extends PureComponent<any> {
         <div className="level-maker">
           {brickLayout.map((row: any, rowIndex: any) => {
             return (
-              <div className="create-row">
+              <div className="create-row" key={rowIndex}>
                 {row.map((brick: any, colIndex: any) => {
                   return (
                     <CreateBrick
                       brickColor={brickColors[brick.status]}
                       changeBrickLayout={changeBrickLayout}
                       status={brick.status}
-                      key={rowIndex + colIndex}
+                      key={`${rowIndex} ${colIndex}`}
                       row={rowIndex}
                       column={colIndex}
                     />
