@@ -49,9 +49,9 @@ export default class CreateLevel extends PureComponent<any> {
             )
           })}
         </div>
-        <span className="copy" data-clipboard-text={JSON.stringify(brickLayout)}>
+        {/* <span className="copy" data-clipboard-text={JSON.stringify(brickLayout)}>
           Copy JSON to clipboard
-        </span>
+        </span> */}
       </div>
     );
   }

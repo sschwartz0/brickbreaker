@@ -1,9 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin'); TODO: use in prod config
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); TODO: use in prod config
 const webpack = require('webpack');
-// const htmlWebpackTemplateConfig = require('./config/htmlWebpackTemplate.js'); TODO: get working as import
 
 module.exports = {
 	context: path.join(__dirname, 'src'),
@@ -23,9 +20,6 @@ module.exports = {
 	plugins: [
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin(),
-		// new webpack.optimize.CommonsChunkPlugin({
-		// 	name: 'common',
-		// }),
 		new HtmlWebpackPlugin({
 			template: './index.html',
 			filename: 'index.html',

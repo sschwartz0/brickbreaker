@@ -25,7 +25,7 @@ const initialState: InitialState = {
     brickPadding: 0,
     brickOffsetTop: 90,
     brickOffsetLeft: 30,
-    brickLayout: levels[0],
+    brickLayout: levels[3],
   },
   player: undefined,
   scores: undefined,
